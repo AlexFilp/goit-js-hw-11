@@ -33,6 +33,13 @@ a {
 
 .header {
   padding: 20px;
+  background-color: blue;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.main {
+  padding-top: 15px;
 }
 
 .search-form {
@@ -46,6 +53,7 @@ a {
   width: 300px;
   height: 40px;
   font-size: 20px;
+  border-radius: 6px;
 }
 
 .btn {
@@ -57,16 +65,18 @@ a {
   line-height: 1.88;
 
   letter-spacing: 0.06em;
-  border-radius: 4px;
+  border-radius: 6px;
 
-  color: #fafafa;
-  background-color: blue;
+  color: blue;
+  background-color: #fafafa;
 }
 
 .load-more {
   display: block;
   margin: 0 auto;
   margin-top: 20px;
+  color: #fafafa;
+  background-color: blue;
 }
 
 .gallery {
