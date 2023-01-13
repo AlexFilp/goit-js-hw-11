@@ -25,7 +25,7 @@ function onSubmit(e) {
 
   apiService.fetchImgFunc().then(images => {
     console.log(images);
-    if (images.hits.length === 0) {
+    if (images.data.hits.length === 0) {
       refs.gallery.innerHTML = '';
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
@@ -53,7 +53,7 @@ function onLoadMore() {
 }
 
 function renderImageCards(images) {
-  const imageCards = images.hits
+  const imageCards = images.data.hits
     .map(
       item => `<a href="${item.largeImageURL}"><div class="photo-card">
   <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" />
