@@ -48,8 +48,7 @@ function onLoadMore() {
 
     refs.gallery.insertAdjacentHTML('beforeend', renderImageCards(images));
 
-    let simpleLb = new SimpleLightbox('.gallery a');
-    simpleLb.refresh();
+    new SimpleLightbox('.gallery a');
   });
 }
 
