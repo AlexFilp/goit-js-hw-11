@@ -3,6 +3,7 @@ import ApiService from './api-service';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import { handleInfiniteScroll } from './infiniteScroll';
 
 Notify.init({
   position: 'left-top',
@@ -23,6 +24,8 @@ let totalHitsAmount = 0;
 
 refs.form.addEventListener('submit', onSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
+// For infinite scroll
+// window.addEventListener('scroll', () => handleInfiniteScroll(onLoadMore));
 
 const lightBox = new SimpleLightbox('.gallery a');
 
@@ -30,6 +33,9 @@ function onSubmit(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
   totalHitsAmount = 0;
+  // for disabled button
+  // refs.loadMoreBtn.disabled = false;
+  // refs.loadMoreBtn.classList.remove('is-disabled');
 
   refs.loadMoreBtn.classList.add('is-hidden');
 
@@ -50,6 +56,8 @@ function onSubmit(e) {
       lightBox.refresh();
 
       refs.loadMoreBtn.classList.remove('is-hidden');
+      // for disabled button
+      // refs.loadMoreBtn.textContent = `Load more ${totalHitsAmount}/${images.data.totalHits}`;
 
       Notify.success(`Hooray! We found ${images.data.totalHits} images.`);
     }
@@ -62,6 +70,12 @@ function onLoadMore() {
     .then(images => {
       totalHitsAmount += images.data.hits.length;
       if (totalHitsAmount === images.data.totalHits) {
+        // for disabled button
+        // refs.loadMoreBtn.disabled = true;
+        // refs.loadMoreBtn.classList.add('is-disabled');
+        // refs.loadMoreBtn.textContent = `${totalHitsAmount}/${images.data.totalHits}`;
+
+        // for hidden button
         refs.loadMoreBtn.classList.add('is-hidden');
         Notify.failure(
           "We're sorry, but you've reached the end of search results."
@@ -70,6 +84,20 @@ function onLoadMore() {
       renderImageCards(images);
 
       refs.gallery.insertAdjacentHTML('beforeend', renderImageCards(images));
+
+      // for disabled button
+      // refs.loadMoreBtn.textContent = `${
+      //   images.data.totalHits === totalHitsAmount ? '' : 'Load More'
+      // } ${totalHitsAmount}/${images.data.totalHits}`;
+
+      const { height: cardHeight } = document
+        .querySelector('.gallery')
+        .firstElementChild.getBoundingClientRect();
+
+      window.scrollBy({
+        top: cardHeight * 2 - 60,
+        behavior: 'smooth',
+      });
 
       lightBox.refresh();
     })
