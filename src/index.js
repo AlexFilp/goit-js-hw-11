@@ -4,6 +4,13 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
+Notify.init({
+  position: 'left-top',
+  width: '250px',
+  cssAnimationStyle: 'zoom',
+  showOnlyTheLastOne: true,
+});
+
 const refs = {
   form: document.querySelector('.search-form'),
   gallery: document.querySelector('.gallery'),
@@ -50,7 +57,8 @@ function onLoadMore() {
 
       refs.gallery.insertAdjacentHTML('beforeend', renderImageCards(images));
 
-      new SimpleLightbox('.gallery a').refresh();
+      const simpleLB = new SimpleLightbox('.gallery a');
+      simpleLB.refresh();
     })
     .catch(error => {
       refs.loadMoreBtn.classList.add('is-hidden');
