@@ -4,6 +4,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { handleInfiniteScroll } from './infiniteScroll';
+import throttle from 'lodash.throttle';
 
 Notify.init({
   position: 'left-top',
@@ -25,7 +26,10 @@ let totalHitsAmount = 0;
 refs.form.addEventListener('submit', onSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 // For infinite scroll
-// window.addEventListener('scroll', () => handleInfiniteScroll(onLoadMore));
+// window.addEventListener(
+//   'scroll',
+//   throttle(() => handleInfiniteScroll(onLoadMore), 250)
+// );
 
 const lightBox = new SimpleLightbox('.gallery a');
 
@@ -93,6 +97,7 @@ function onLoadMore() {
       //   images.data.totalHits === totalHitsAmount ? '' : 'Load More'
       // } ${totalHitsAmount}/${images.data.totalHits}`;
 
+      // comment for infiniteScroll
       const { height: cardHeight } = document
         .querySelector('.gallery')
         .firstElementChild.getBoundingClientRect();
