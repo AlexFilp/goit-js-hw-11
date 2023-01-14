@@ -50,9 +50,10 @@ function onLoadMore() {
 
       refs.gallery.insertAdjacentHTML('beforeend', renderImageCards(images));
 
-      new SimpleLightbox('.gallery a');
+      new SimpleLightbox('.gallery a').refresh();
     })
     .catch(error => {
+      refs.loadMoreBtn.classList.add('is-hidden');
       Notify.failure(
         "We're sorry, but you've reached the end of search results."
       );
