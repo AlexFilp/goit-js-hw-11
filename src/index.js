@@ -55,7 +55,9 @@ function onSubmit(e) {
 
       lightBox.refresh();
 
+      // comment for infiniteScroll
       refs.loadMoreBtn.classList.remove('is-hidden');
+
       // for disabled button
       // refs.loadMoreBtn.textContent = `Load more ${totalHitsAmount}/${images.data.totalHits}`;
 
@@ -76,6 +78,7 @@ function onLoadMore() {
         // refs.loadMoreBtn.textContent = `${totalHitsAmount}/${images.data.totalHits}`;
 
         // for hidden button
+        // comment for infiniteScroll
         refs.loadMoreBtn.classList.add('is-hidden');
         Notify.failure(
           "We're sorry, but you've reached the end of search results."
