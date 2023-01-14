@@ -17,6 +17,7 @@ refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
 function onSubmit(e) {
   e.preventDefault();
+  refs.gallery.innerHTML = '';
 
   refs.loadMoreBtn.classList.add('is-hidden');
 
@@ -26,7 +27,6 @@ function onSubmit(e) {
   apiService.fetchImgFunc().then(images => {
     console.log(images);
     if (images.data.hits.length === 0) {
-      refs.gallery.innerHTML = '';
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
