@@ -58,6 +58,7 @@ a {
   font-size: 20px;
   border-radius: 6px;
   padding-left: 15px;
+  outline: none;
 }
 
 .btn {
@@ -73,14 +74,37 @@ a {
 
   color: #212121;
   background-color: #fafafa;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn:hover,
+.btn:focus {
+  color: #fafafa;
+  background-color: blue;
+  border-color: #fafafa;
 }
 
 .load-more {
   display: block;
   margin: 0 auto;
   margin-top: 20px;
+
   color: #fafafa;
   background-color: blue;
+
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.load-more:hover,
+.load-more:focus {
+  color: blue;
+  background-color: #fafafa;
+  border-color: blue;
 }
 
 .gallery {
