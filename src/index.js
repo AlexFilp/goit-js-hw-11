@@ -37,19 +37,27 @@ function onSubmit(e) {
 
       refs.loadMoreBtn.classList.remove('is-hidden');
 
-      Notify.success(`Hooray! We found ${images.totalHits} images.`);
+      Notify.success(`Hooray! We found ${images.data.totalHits} images.`);
     }
   });
 }
 
 function onLoadMore() {
-  apiService.fetchImgFunc().then(images => {
-    renderImageCards(images);
+  apiService
+    .fetchImgFunc()
+    .then(images => {
+      renderImageCards(images);
 
-    refs.gallery.insertAdjacentHTML('beforeend', renderImageCards(images));
+      refs.gallery.insertAdjacentHTML('beforeend', renderImageCards(images));
 
-    new SimpleLightbox('.gallery a');
-  });
+      new SimpleLightbox('.gallery a');
+    })
+    .catch(error => {
+      Notify.failure(
+        "We're sorry, but you've reached the end of search results."
+      );
+      console.log(error);
+    });
 }
 
 function renderImageCards(images) {
