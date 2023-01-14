@@ -1,5 +1,3 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
 export default class ApiService {
   constructor() {
     this.formInput = '';

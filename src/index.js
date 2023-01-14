@@ -19,12 +19,17 @@ const refs = {
 
 const apiService = new ApiService();
 
+let totalHitsAmount = 0;
+
 refs.form.addEventListener('submit', onSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
+
+const lightBox = new SimpleLightbox('.gallery a');
 
 function onSubmit(e) {
   e.preventDefault();
   refs.gallery.innerHTML = '';
+  totalHitsAmount = 0;
 
   refs.loadMoreBtn.classList.add('is-hidden');
 
@@ -40,7 +45,9 @@ function onSubmit(e) {
     } else {
       refs.gallery.innerHTML = renderImageCards(images);
 
-      new SimpleLightbox('.gallery a');
+      totalHitsAmount += images.data.hits.length;
+
+      lightBox.refresh();
 
       refs.loadMoreBtn.classList.remove('is-hidden');
 
@@ -53,12 +60,18 @@ function onLoadMore() {
   apiService
     .fetchImgFunc()
     .then(images => {
+      totalHitsAmount += images.data.hits.length;
+      if (totalHitsAmount === images.data.totalHits) {
+        refs.loadMoreBtn.classList.add('is-hidden');
+        Notify.failure(
+          "We're sorry, but you've reached the end of search results."
+        );
+      }
       renderImageCards(images);
 
       refs.gallery.insertAdjacentHTML('beforeend', renderImageCards(images));
 
-      const simpleLB = new SimpleLightbox('.gallery a');
-      simpleLB.refresh();
+      lightBox.refresh();
     })
     .catch(error => {
       refs.loadMoreBtn.classList.add('is-hidden');
