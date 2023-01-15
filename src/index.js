@@ -38,8 +38,8 @@ function onSubmit(e) {
   refs.gallery.innerHTML = '';
   totalHitsAmount = 0;
   // for disabled button
-  // refs.loadMoreBtn.disabled = false;
-  // refs.loadMoreBtn.classList.remove('is-disabled');
+  refs.loadMoreBtn.disabled = false;
+  refs.loadMoreBtn.classList.remove('is-disabled');
 
   refs.loadMoreBtn.classList.add('is-hidden');
 
@@ -63,7 +63,7 @@ function onSubmit(e) {
       refs.loadMoreBtn.classList.remove('is-hidden');
 
       // for disabled button
-      // refs.loadMoreBtn.textContent = `Load more ${totalHitsAmount}/${images.data.totalHits}`;
+      refs.loadMoreBtn.textContent = `Load more ${totalHitsAmount}/${images.data.totalHits}`;
 
       Notify.success(`Hooray! We found ${images.data.totalHits} images.`);
     }
@@ -77,35 +77,28 @@ function onLoadMore() {
       totalHitsAmount += images.data.hits.length;
       if (totalHitsAmount === images.data.totalHits) {
         // for disabled button
-        // refs.loadMoreBtn.disabled = true;
-        // refs.loadMoreBtn.classList.add('is-disabled');
-        // refs.loadMoreBtn.textContent = `${totalHitsAmount}/${images.data.totalHits}`;
+        refs.loadMoreBtn.disabled = true;
+        refs.loadMoreBtn.classList.add('is-disabled');
+        refs.loadMoreBtn.textContent = `${totalHitsAmount}/${images.data.totalHits}`;
 
         // for hidden button
         // comment for infiniteScroll
-        refs.loadMoreBtn.classList.add('is-hidden');
-        Notify.failure(
-          "We're sorry, but you've reached the end of search results."
-        );
+        // refs.loadMoreBtn.classList.add('is-hidden');
+        // Notify.failure(
+        //   "We're sorry, but you've reached the end of search results."
+        // );
       }
       renderImageCards(images);
 
       refs.gallery.insertAdjacentHTML('beforeend', renderImageCards(images));
 
       // for disabled button
-      // refs.loadMoreBtn.textContent = `${
-      //   images.data.totalHits === totalHitsAmount ? '' : 'Load More'
-      // } ${totalHitsAmount}/${images.data.totalHits}`;
+      refs.loadMoreBtn.textContent = `${
+        images.data.totalHits === totalHitsAmount ? '' : 'Load More'
+      } ${totalHitsAmount}/${images.data.totalHits}`;
 
       // comment for infiniteScroll
-      const { height: cardHeight } = document
-        .querySelector('.gallery')
-        .firstElementChild.getBoundingClientRect();
-
-      window.scrollBy({
-        top: cardHeight * 2 - 60,
-        behavior: 'smooth',
-      });
+      doSlowScroll();
 
       lightBox.refresh();
     })
@@ -142,4 +135,15 @@ function renderImageCards(images) {
     .join('');
 
   return imageCards;
+}
+
+function doSlowScroll() {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2 - 60,
+    behavior: 'smooth',
+  });
 }
