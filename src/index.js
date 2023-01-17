@@ -26,10 +26,10 @@ let totalHitsAmount = 0;
 refs.form.addEventListener('submit', onSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 // For infinite scroll
-// window.addEventListener(
-//   'scroll',
-//   throttle(() => handleInfiniteScroll(onLoadMore), 250)
-// );
+window.addEventListener(
+  'scroll',
+  throttle(() => handleInfiniteScroll(onLoadMore), 300)
+);
 
 const lightBox = new SimpleLightbox('.gallery a');
 
@@ -38,8 +38,8 @@ function onSubmit(e) {
   refs.gallery.innerHTML = '';
   totalHitsAmount = 0;
   // for disabled button
-  refs.loadMoreBtn.disabled = false;
-  refs.loadMoreBtn.classList.remove('is-disabled');
+  // refs.loadMoreBtn.disabled = false;
+  // refs.loadMoreBtn.classList.remove('is-disabled');
 
   refs.loadMoreBtn.classList.add('is-hidden');
 
@@ -60,10 +60,10 @@ function onSubmit(e) {
       lightBox.refresh();
 
       // comment for infiniteScroll
-      refs.loadMoreBtn.classList.remove('is-hidden');
+      // refs.loadMoreBtn.classList.remove('is-hidden');
 
       // for disabled button
-      refs.loadMoreBtn.textContent = `Load more ${totalHitsAmount}/${images.data.totalHits}`;
+      // refs.loadMoreBtn.textContent = `Load more ${totalHitsAmount}/${images.data.totalHits}`;
 
       Notify.success(`Hooray! We found ${images.data.totalHits} images.`);
     }
@@ -77,10 +77,9 @@ function onLoadMore() {
       totalHitsAmount += images.data.hits.length;
       if (totalHitsAmount === images.data.totalHits) {
         // for disabled button
-        refs.loadMoreBtn.disabled = true;
-        refs.loadMoreBtn.classList.add('is-disabled');
-        refs.loadMoreBtn.textContent = `${totalHitsAmount}/${images.data.totalHits}`;
-
+        // refs.loadMoreBtn.disabled = true;
+        // refs.loadMoreBtn.classList.add('is-disabled');
+        // refs.loadMoreBtn.textContent = `${totalHitsAmount}/${images.data.totalHits}`;
         // for hidden button
         // comment for infiniteScroll
         // refs.loadMoreBtn.classList.add('is-hidden');
@@ -93,12 +92,12 @@ function onLoadMore() {
       refs.gallery.insertAdjacentHTML('beforeend', renderImageCards(images));
 
       // for disabled button
-      refs.loadMoreBtn.textContent = `${
-        images.data.totalHits === totalHitsAmount ? '' : 'Load More'
-      } ${totalHitsAmount}/${images.data.totalHits}`;
+      // refs.loadMoreBtn.textContent = `${
+      //   images.data.totalHits === totalHitsAmount ? '' : 'Load More'
+      // } ${totalHitsAmount}/${images.data.totalHits}`;
 
       // comment for infiniteScroll
-      doSlowScroll();
+      // doSlowScroll();
 
       lightBox.refresh();
     })
