@@ -19,7 +19,12 @@ const refs = {
   form: document.querySelector('.search-form'),
   gallery: document.querySelector('.gallery'),
   loadMoreBtn: document.querySelector('.load-more'),
+  pagContainer: document.querySelector('#tui-pagination-container'),
 };
+
+const myPagination = new Pagination(refs.pagContainer, {
+  totalItems: 5,
+});
 
 const apiService = new ApiService();
 
@@ -28,10 +33,10 @@ let totalHitsAmount = 0;
 refs.form.addEventListener('submit', onSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 // For infinite scroll
-window.addEventListener(
-  'scroll',
-  throttle(() => handleInfiniteScroll(onLoadMore), 300)
-);
+// window.addEventListener(
+//   'scroll',
+//   throttle(() => handleInfiniteScroll(onLoadMore), 300)
+// );
 
 const lightBox = new SimpleLightbox('.gallery a');
 

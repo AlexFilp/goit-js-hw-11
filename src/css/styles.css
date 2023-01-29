@@ -142,3 +142,10 @@ a {
   pointer-events: none;
   user-select: none;
 }
+
+#tui-pagination-container {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+}
