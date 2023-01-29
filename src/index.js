@@ -6,6 +6,8 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { handleInfiniteScroll } from './infiniteScroll';
 import throttle from 'lodash.throttle';
 
+const Pagination = require('tui-pagination');
+
 Notify.init({
   position: 'left-top',
   width: '250px',
