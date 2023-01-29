@@ -75,6 +75,7 @@ function onSubmit(e) {
       Notify.success(`Hooray! We found ${images.data.totalHits} images.`);
     }
   });
+  refs.form.reset();
 }
 
 function onLoadMore() {
@@ -153,3 +154,11 @@ function doSlowScroll() {
     behavior: 'smooth',
   });
 }
+
+// refs.form.addEventListener('input', onType);
+
+// function onType(evt) {
+//   let inputData = {};
+//   inputData[evt.target.name] = evt.target.value;
+//   console.log(inputData);
+// }
