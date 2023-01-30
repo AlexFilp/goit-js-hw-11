@@ -6,8 +6,6 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { handleInfiniteScroll } from './infiniteScroll';
 import throttle from 'lodash.throttle';
 
-const Pagination = require('tui-pagination');
-
 Notify.init({
   position: 'left-top',
   width: '250px',
@@ -21,10 +19,6 @@ const refs = {
   loadMoreBtn: document.querySelector('.load-more'),
   pagContainer: document.querySelector('#tui-pagination-container'),
 };
-
-const myPagination = new Pagination(refs.pagContainer, {
-  totalItems: 5,
-});
 
 const apiService = new ApiService();
 
@@ -75,6 +69,7 @@ function onSubmit(e) {
       Notify.success(`Hooray! We found ${images.data.totalHits} images.`);
     }
   });
+
   refs.form.reset();
 }
 
