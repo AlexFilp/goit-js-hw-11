@@ -27,10 +27,10 @@ let totalHitsAmount = 0;
 refs.form.addEventListener('submit', onSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 // For infinite scroll
-// window.addEventListener(
-//   'scroll',
-//   throttle(() => handleInfiniteScroll(onLoadMore), 300)
-// );
+window.addEventListener(
+  'scroll',
+  throttle(() => handleInfiniteScroll(onLoadMore), 300)
+);
 
 const lightBox = new SimpleLightbox('.gallery a');
 
