@@ -143,7 +143,7 @@ a {
   user-select: none;
 }
 
-#tui-pagination-container {
+.tui-pagination {
   display: flex;
   justify-content: center;
   gap: 5px;

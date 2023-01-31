@@ -5,6 +5,8 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { handleInfiniteScroll } from './infiniteScroll';
 import throttle from 'lodash.throttle';
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css';
 
 Notify.init({
   position: 'left-top',
@@ -17,20 +19,21 @@ const refs = {
   form: document.querySelector('.search-form'),
   gallery: document.querySelector('.gallery'),
   loadMoreBtn: document.querySelector('.load-more'),
-  pagContainer: document.querySelector('#tui-pagination-container'),
+  pagContainer: document.querySelector('#pagination'),
 };
 
 const apiService = new ApiService();
 
 let totalHitsAmount = 0;
+let pagPage = 1;
 
 refs.form.addEventListener('submit', onSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 // For infinite scroll
-window.addEventListener(
-  'scroll',
-  throttle(() => handleInfiniteScroll(onLoadMore), 300)
-);
+// window.addEventListener(
+//   'scroll',
+//   throttle(() => handleInfiniteScroll(onLoadMore), 300)
+// );
 
 const lightBox = new SimpleLightbox('.gallery a');
 
@@ -44,11 +47,17 @@ function onSubmit(e) {
 
   refs.loadMoreBtn.classList.add('is-hidden');
 
+  refs.pagContainer.classList.add('is-hidden');
+
   apiService.formInput = e.target.elements.searchQuery.value;
   apiService.resetPage();
 
   apiService.fetchImgFunc().then(images => {
-    console.log(images);
+    console.log(images.data);
+    console.log(apiService.formInput);
+    console.log(apiService.page);
+    console.log(apiService.perPage);
+    console.log(images.data.totalHits);
     if (images.data.hits.length === 0) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
@@ -59,6 +68,26 @@ function onSubmit(e) {
       totalHitsAmount += images.data.hits.length;
 
       lightBox.refresh();
+
+      const pagination = new Pagination(refs.pagContainer, {
+        totalItems: `${images.data.totalhits}`,
+        itemsPerPage: `${apiService.perPage}`,
+        visiblePages: 5,
+        centerAlign: true,
+      });
+
+      pagination.reset(images.data.totalHits);
+
+      pagination.on('beforeMove', e => {
+        console.log(e);
+        pagPage = e.pagPage;
+        apiService.fetchImgFunc().then(images => {
+          refs.gallery.innerHTML = renderImageCards(images);
+          lightBox.refresh();
+        });
+      });
+
+      refs.pagContainer.classList.remove('is-hidden');
 
       // comment for infiniteScroll
       // refs.loadMoreBtn.classList.remove('is-hidden');
