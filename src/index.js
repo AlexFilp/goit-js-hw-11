@@ -7,6 +7,7 @@ import { handleInfiniteScroll } from './infiniteScroll';
 import throttle from 'lodash.throttle';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
+// import axios from 'axios';
 
 Notify.init({
   position: 'left-top',
@@ -206,3 +207,10 @@ const doFetchAsync = async () => {
 // doFetch()
 //   .then(data => console.log('normal ===>', data))
 //   .catch(error => console.log(error.message));
+
+// const axiosFetchAsync = async () => {
+//   const response = await axios.get('https://pokeapi.co/api/v2/pokemon/ditto');
+//   return response;
+// };
+
+// axiosFetchAsync().then(data => console.log(data));
