@@ -54,10 +54,6 @@ function onSubmit(e) {
 
   apiService.fetchImgFunc().then(images => {
     console.log(images.data);
-    console.log(apiService.formInput);
-    console.log(apiService.page);
-    console.log(apiService.perPage);
-    console.log(images.data.totalHits);
     if (images.data.hits.length === 0) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
@@ -79,7 +75,6 @@ function onSubmit(e) {
       pagination.reset(images.data.totalHits);
 
       pagination.on('beforeMove', e => {
-        console.log(e);
         pagPage = e.pagPage;
         apiService.fetchImgFunc().then(images => {
           refs.gallery.innerHTML = renderImageCards(images);
@@ -186,3 +181,28 @@ function doSlowScroll() {
 //   inputData[evt.target.name] = evt.target.value;
 //   console.log(inputData);
 // }
+
+const doFetchAsync = async () => {
+  const response = await fetch('https://pokeapi.co/api/v2/pokemon/ditto');
+  if (!response.ok) {
+    console.log('ERROR');
+  }
+  return response.json();
+};
+
+// doFetchAsync()
+//   .then(data => console.log('async ===>', data))
+//   .catch(error => console.log(error.message));
+
+// const doFetch = () => {
+//   return fetch('https://pokeapi.co/api/v2/pokemon/ditto').then(response => {
+//     if (!response.ok) {
+//       console.log('ERROR');
+//     }
+//     return response.json();
+//   });
+// };
+
+// doFetch()
+//   .then(data => console.log('normal ===>', data))
+//   .catch(error => console.log(error.message));
